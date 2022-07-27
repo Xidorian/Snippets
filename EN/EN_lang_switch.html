@@ -1,0 +1,45 @@
+<div>
+  <a id="switchFr" href="https://e-activist.com/page/84521/subscribe/1?mode=DEMO&locale=fr-CA#">Français</a>
+  <a id="switchEN" href="https://e-activist.com/page/84521/subscribe/1?mode=DEMO&locale=en-CA#">English</a>
+</div>
+
+<script>
+  $('#switchFR, #switchEN').hide();
+  $('#switchFR, #switchEN').click(switchLocale);
+
+  if (pageJson.locale == 'fr-CA') {
+    $('#switchEN').css({
+      display: 'block'
+    });
+  } else {
+    $('#switchFr').css({
+      display: 'block'
+    });
+  }
+
+  function switchLocale() {
+    // Set language switch links
+    let el = document.getElementById('switchFr');
+    if (el) {
+      el.setAttribute('href', makeLocaleLink('fr-CA'));
+      if (pageJson.locale === 'en-US') {
+        addClass(el, activeClass);
+      }
+    }
+
+    el = document.getElementById('switchEN');
+    if (el) {
+      el.setAttribute('href', makeLocaleLink('en-US'));
+      if (isFr) {
+        addClass(el, activeClass);
+      }
+    }
+
+    const makeLocaleLink = (locale) => {
+      const demoMode = location.search.indexOf('mode') > -1 ? '&mode=DEMO' : '';
+      const origin = locale === 'fr-CA' ? 'https://e-activist.com/page/84521/subscribe/1?mode=DEMO&locale=en-CA' : 'https://e-activist.com/page/84521/subscribe/1?mode=DEMO&locale=fr-CA';
+
+      return `${origin + location.pathname}?locale=${locale}${demoMode}`;
+    };
+  }
+</script>

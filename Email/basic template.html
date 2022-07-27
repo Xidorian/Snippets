@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=yes">
+    <!-- NOTE:
+    In theory format-detection prevents email clients automatically detecting and generating links out of phone numbers, dates, addresses, email addresses and url’s. However support is low, I’ve only ever seen it work for phone numbers on the Outlook iOS app. I’d recommend including these anyway as it’s a hint to the email clients that this is something we want.
+
+    There is an argument that we shouldn’t use these as the auto linking helps users. However I feel there are too many issues with the auto detection to reply on it, if I add a phone number I will add a link myself. If I include numbers for another reason (order number etc.) I don’t want them linking to a phone number. -->
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+    <!-- NOTE:
+    As the name suggests this is specific to Apple. It appears Apple were trying to fix the display of non-responsive email in their iOS email client, however when encountering a responsive email they would display at half the width of the screen and zoomed out. This meta tag prevents the Apple fix and relies on the developer to make the email responsive. -->
+    <meta name="x-apple-disable-message-reformatting">
+    <!-- NOTE:
+    These are used to control dark mode preferences. They both do the same thing but supported-color-schemes was renamed to color-scheme so for now we include both to get more as the old name is supported by Safari, and Mail in macOS 10.14.4.
+
+    The content values include
+    light - tells the email client that only light styles are provided
+    dark - tells the email client that only dark styles are provided
+    light only - tells the email clients that only light mode styles are ready to use and not to try and transform them to dark.
+    dark only - tells the email clients that only dark mode styles are ready to use and not to try and transform them to dark.
+    light dark — tells the email clients that both light and dark styles are coded and ready to use.
+    light dark only — tells the email clients that light and dark styles are ready to use and not to try and transform any styles.
+
+    It’s best to set this with logic depending on if dark styles are included in the code. But if you can’t place that logic I’d opt for light dark. -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <!-- NOTE:
+    The title element give a title to your document, this will be seen in the browser tab if a user selects to view the email in a browser.  -->
+    <title>Email title</title>
+
+    <!-- NOTE: This code helps rendering on Windows versions of Outlook desktop. -->
+    <!-- NOTE: [if mso]> <![endif] This if statement means this code is only visible to Windows versions of Outlook desktop. Although T-online also renders the code. -->
+    <!-- NOTE: <noscript> Stops the text 96 showing in T-Online. -->
+    <!-- NOTE: <o:PixelsPerInch>96</o:PixelsPerInch> This will improve rendering on machines that have a higher DPI set, this is often the case for Windows laptops that have higher than standard resolution monitors, or users who have manually chosen to increase the DPI. -->
+
+    <!--[if mso]>
+    <noscript>
+      <xml>
+        <o:OfficeDocumentSettings>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+      </xml>
+    </noscript>
+    <![endif]-->
+
+    <style>
+      /* NOTE:
+      This is essentially a duplicate of the meta color-scheme. At time of writing this only really works in Apple Mail which supports both methods but in the interest of future proofing I’m including both. */
+      :root {
+        color-scheme: light dark;
+        supported-color-schemes: light dark;
+      }
+
+      @media screen and (max-width: some px) {
+        .column{
+          display:block !important;
+          width:100% !important;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- NOTE:
+  I always like to define a body class on the body element, this is because sometimes when an email renders the <body> element is converted to a <div>. It is also useful for targeting certain email clients. -->
+  <body class="body" style="text-align: center">
+    <!-- NOTE:
+    Inside the email body we wrap the whole content of the email in this <div>, I’ve also seen some people apply these attributes to a wrapping <table> personally I try and avoid tables as much as possible, but if that’s your set up then you can use it on a <table>. -->
+    <!-- NOTE: aria-label="email name"
+    So we’ve said this is stand-alone content, we’ve said the content type is email now we give that a title. To keep it simple I’d recommend using the subject line if you can dynamically insert that or perhaps say who the email is from. -->
+    <!-- NOTE: lang="en" dir="ltr"
+    These are a duplication of the lang & dir set on the HTML element. Email clients will often remove the <html> element so it’s best to duplicate it here also. -->
+    <!-- NOTE: Some email clients may force a font-size on your email content. This resets it to be relative to the users settings so better for accessibility.
+
+    Most email clients and web browsers use a default font-size of 16px or larger but Apple mail uses a default of 12px. If you want to increase this default but still respect the the user settings then you can use font-size:medium; font-size:max(1rem, 16px). If the user has a setting smaller than 16px then the font-size will be set to 16px, if it’s larger then the rem value will be used. If max isn’t supported then it will fallback to the previous setting of font-size:medium; which is the same as font-size:1rem; but with better support. -->
+    <div role="article" aria-roledescription="email" aria-label="email name" lang="en" dir="ltr" style="font-size:medium; font-size:max(16px, 1rem)">
+      <!-- Visually Hidden Preheader Text -->
+      <div style="display: none; max-height: 0px; overflow: hidden;">
+        Insert hidden preheader text here.
+      </div>
+      <!-- Insert &#847;&zwnj;&nbsp; hack after hidden preview text -->
+      <div style="display: none; max-height: 0px; overflow: hidden;">
+        &#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
+      </div>
+
+      <!-- NOTE:
+      The container is the main wrapper that hold your content, typically in email this is a single 600px wide center aligned column, that will shrink down on smaller viewports.
+
+      You can use multiple container to get different background effects and separate up the content.
+
+      This could be combined with the wrapping element from the template if you like but if you’re using multiple containers then the wrapping element should wrap all of the containers. -->
+
+      <!-- NOTE: Styling the container
+      Generally most styling can be added to the <div> and it will work for both the MSO and HTML version. But you may find issue with a few things like padding or background there are a couple of options to look at if you hit any issues.
+
+      You can set everything in the <div> then reset anything that is breaking in mso using mso styles, for example padding:2em;mso-padding-alt:0;. You can then set those styles specifically for mso by placing them on the <td>. -->
+
+      <!-- NOTE: Adding a background colour to the outer body
+      For the most part you can simple add the style to the body element like <body style="background:#000000">. Then add a wrapping div around the entire content of the email <div style="background:#000000">. Between these 2 this will cover almost every email client. -->
+
+<!-- EMPTY CONTAINER -->
+      <!--[if true]>
+      <table role="presentation" style="width:37.5em" align="center">
+      <tr>
+      <td>
+      <![endif]-->
+      <div style="max-width:37.5em; margin:0 auto">
+        <!-- email content in here -->
+      </div>
+      <!--[if true]>
+      </td></tr></table>
+      <![endif]-->
+
+<!-- PICTURE -->
+      <!--[if true]>
+      <table role="presentation" style="width:37.5em" align="center"><tr><td>
+      <![endif]-->
+      <div style="max-width:37.5em; margin:0 auto">
+        <!-- NOTE:
+        The picture element allows us to define a number of different sources for an image. This can be really useful for things like,
+
+        Using different image formats that aren’t supported everywhere.
+        Changing images for smaller viewports.
+        Changing images for dark mode.
+        Swapping an animated image to a static image for users who prefer reduced motion. -->
+
+        <!-- NOTE:
+        There are 3 main parts to the code
+        <picture> this acts as a wrapper to the content.
+        <source> this gives alternate options to use for the image src, we can add more than one option here if we like.
+        <img> this is the default image. If none of the <source> elements match our needs or if <picture> isn’t supported this acts as a standard <img> element. We should add our class and style attributes here and as with any image it’s important to include an alt="" attribute. These attributes apply to all versions of the image. -->
+        <picture>
+          <source srcset="webP-image.webp" type="image/webp">
+          <img src="https://via.placeholder.com/310" alt="Alt Text!" style="">
+        </picture>
+
+        <!-- NOTE:
+        <source>
+        The <source> element is used to give other options to use for the <img> so we need to give some hints to say which image is the best to use. This is done with 3 attributes srcset type and media.
+
+        srcset
+        This sets the alternate image src. However as it uses srcset rather than src we can do a little more with it too and include a comma-separated list of image sources with either a width descriptor to define the source image width or a pixel density descriptor for high-DPI screens. <source srcset="image-300.png 300w, image-600.png 600w, image-2x.png 2x">
+
+        type
+        This defines the image type, in the above example I’m using a webP image. WebP is a great image format, it can do animation and has far better compression than a gif (to be fair the gif format was last updated in 1989 so it’s done well to last this long). However webP is not supported everywhere just yet, so using type="image/webp" we can suggest to switch to this image if it’s supported, otherwise it will fallback to another <source> that is supported or go back to the fallback set in the <img>.
+
+        Here is a list of image file types you can reference. https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types -->
+
+        <!-- NOTE:
+        media
+        This defines a media condition (similar to a media query), so you could, for example change an image on viewports less than 500px using this code. -->
+        <picture>
+          <source srcset="https://via.placeholder.com/310" media="(max-width: 500px)">
+          <img src="https://via.placeholder.com/310" alt="Alt Text!" style="">
+        </picture>
+
+        <!-- NOTE:
+        Dark Mode
+        But where this is really cool is you can use it for other enhancements, like dark mode. -->
+        <picture>
+          <source srcset="https://via.placeholder.com/150/FFFFFF/000000/?text=IPaddress.net" media="(prefers-color-scheme: dark)">
+          <img src="https://via.placeholder.com/150/000000/FFFFFF/?text=IPaddress.net" alt="Alt Text!" style="">
+        </picture>
+
+        <!-- NOTE:
+        Reduced Motion
+        And it’s great for using as an accessibility enhancement for things like reduced motion. -->
+        <!-- NOTE: In this example if the user has said they don’t mind movement and there is support for webP they will see the animation.webp image. If the user has said they don’t mind movement but there isn’t support for webP they will see the animation.gif image. And if the user has said they don’t want movement (or if <picture> isn’t supported) they will see the static.png image. -->
+        <picture>
+          <source srcset="animation.webp"  type="image/webp" media="(prefers-reduced-motion: no-preference)">
+          <source srcset="animation.gif"  type="image/gif" media="(prefers-reduced-motion: no-preference)">
+          <img src="static.png" alt="Alt Text!" style="">
+        </picture>
+
+      </div>
+      <!--[if true]>
+      </td></tr></table>
+      <![endif]-->
+
+<!-- TEXT -->
+      <!--[if true]>
+      <table role="presentation" style="width:37.5em" align="center"><tr><td>
+      <![endif]-->
+      <div style="max-width:37.5em; margin:0 auto">
+        <!-- NOTE:
+        Text formatting
+        Some text formatting can be achieved by using HTML rather than CSS. The advantage here is that we can add semantic meaning to the content rather than just visual styles. There are also some styles that add no meaning, and therefore have the same affect as a styled <span> element. So when adding text formatting it’s important to think about if you want the semantic meaning added or if this is purely a visual style. -->
+        <h1 style="margin: .67em 0; font-size:2em">Heading 1</h1>
+        <h2 style="margin: .83em 0; font-size:1.5em">Heading 2</h2>
+        <h3 style="margin: 1em 0; font-size:1.17em">Heading 3</h3>
+        <h4 style="margin: 1.33em 0; font-size:1em">Heading 4</h4>
+        <h5 style="margin: 1.67em 0; font-size:.83em">Heading 5</h5>
+        <h6 style="margin: 2.33em 0; font-size:.67em">Heading 6</h6>
+        <p style="margin: 1em 0;">Paragraph</p>
+
+        <!-- NOTE:
+        All of the styles here are optional except the padding and display without those it’s a regular text link, which is also fine but that’s not what we’re looking at now. I’ve set display to inline-block so it flows with the text-align, but you could also use block. -->
+        <!-- NOTE: Set underline colour for Windows mail
+        It appears that Windows Mail doesn’t respect text-decoration: none; or the MSO specific value of text-underline: none so we can’t remove the underline. We can however change the colour of it to match the background so we add text-underline-color:#333. -->
+
+        <!-- NOTE:
+        Height and width
+        This code uses padding to create the size of the design rather than height and width. This is to give a more consistent rendering across email clients. Where as most email clients will support height and width MSO Outlook will not. -->
+        <!-- NOTE: Height
+        To add height just add a height to the <a> styles and for Outlook, add line-height of the same value to one of the <i> elements. -->
+        <!-- NOTE: Width
+        To add width just add a width to the <a> styles and for Outlook we can’t do anything so you have to reply on the letter-spacing trick. For example if you want to do width:100%; you’d need to estimate a px value of what that might be for Outlook. Be carful not to over estimate the values for Outlook as you want to avoid text wrapping. -->
+
+        <a href="https://example.com/" style="background: #333; border: 2px solid #f00; text-decoration: none; padding: 15px 25px; color: #fff; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#333"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:30pt" hidden>&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;">Link Text</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->
+        </a>
+
+        <!-- NOTE:
+        The <hr> default colour is set by the border. To simplify things and to get it to work consistently we’re going to start by removing that border-width: 0 then we need to set our custom colour using background: #000 and to get it working in Outlook we use color: #000. Because we’ve removed the border we now need to give it some height to see that colour showing so here I’ve added height:1em -->
+        <!-- NOTE: Width
+        The default is width:100% but you can use what suits your style. Consider if you use a fixed width it may be good to also add a max-width so this stays responsive width:500px; max-width:80%. -->
+        <!-- NOTE: Margin
+        You can adjust the space around with a margin, either in long hand or short hand format. However MSO Outlooks don’t support left/right margin when applied directly to the <hr> so to get it working there we need to add the margin to a wrapping <div>. -->
+        <!-- NOTE: You can do a vertical rule, by simply setting the height larger than the width. -->
+        <hr style="border-width: 0; background: #000; color: #000; height:1em">
+
+        <!-- NOTE:
+        Spacing
+        Spacing seems like a very simple task but to do it accurately in email can get a little tricky at times.
+
+        Your first options should always be using margin or padding.
+
+        But if you're having issues continue reading here: https://www.goodemailcode.com/email-code/spacing -->
+      </div>
+      <!--[if true]>
+      </td></tr></table>
+      <![endif]-->
+
+<!-- COLUMNS -->
+      <!--[if true]>
+      <table role="presentation" style="width:37.5em" align="center"><tr><td>
+      <![endif]-->
+      <div style="max-width:37.5em; margin:0 auto">
+        <!-- NOTE:
+        Here I’ve used display:table on the outer div and display:table-cell on the inner divs. You could also just define display:inline-block on the inner divs. There are pros and cons to both approaches.
+
+        table-cell Can auto fill the width of any columns that don’t have width defined. A height of all columns will be determined by the height of the tallest. This does require a media query of you want the columns to stack.
+
+        inline-block Can stack columns without any code in the head. Elements that are inline-block have additional spacing added to them, this mean 2 columns set at 50% width will actually flow onto the next line. There are fixes for this but they are delicate and can broken by email client or ESP support. One advantage for this method is columns can stack without media queries. -->
+
+        <!-- NOTE:
+        Using this method you can add as many columns as you like just repeat this part of the code as many times as you like and adjust the width values.
+
+        <!- -[if true]>
+          <td width="10%">
+        <![endif]- ->
+        <!- -[if !true]><!- ->
+          <div class="column" style="display:table-cell;width:10%">
+        <!- -<![endif]- ->
+            Column 1 content
+        <!- -[if !true]><!- ->
+          </div>
+        <!- -<![endif]- ->
+        <!- -[if true]>
+          </td>
+        <![endif]- ->
+
+        You don’t actually need to define a width, if left undefined it will be generated automatically. This can work well for a responsive layout if you want one column fixed (maybe containing an image) and one column fluid (maybe containing text).-->
+
+        <!--[if true]>
+        <table role="presentation" width="100%" style="all:unset;opacity:0;">
+          <tr>
+        <![endif]-->
+        <!--[if false]></td></tr></table><![endif]-->
+        <div style="display:table;width:100%;">
+          <!--[if true]>
+            <td width="50%">
+          <![endif]-->
+          <!--[if !true]><!-->
+            <div class="column" style="display:table-cell;width:50%">
+          <!--<![endif]-->
+              Column 1 content
+          <!--[if !true]><!-->
+            </div>
+          <!--<![endif]-->
+          <!--[if true]>
+            </td>
+          <![endif]-->
+          <!--[if true]>
+            <td width="50%">
+          <![endif]-->
+          <!--[if !true]><!-->
+            <div class="column" style="display:table-cell;width:50%">
+          <!--<![endif]-->
+              Column 2 content
+          <!--[if !true]><!-->
+            </div>
+          <!--<![endif]-->
+          <!--[if true]>
+            </td>
+          <![endif]-->
+        </div>
+        <!--[if true]>
+          </tr>
+        </table>
+        <![endif]-->
+      </div>
+      <!--[if true]>
+      </td></tr></table>
+      <![endif]-->
+    </div>
+  </body>
+
+</html>
