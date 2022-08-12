@@ -207,8 +207,7 @@
         <!-- NOTE: Width
         To add width just add a width to the <a> styles and for Outlook we can’t do anything so you have to reply on the letter-spacing trick. For example if you want to do width:100%; you’d need to estimate a px value of what that might be for Outlook. Be carful not to over estimate the values for Outlook as you want to avoid text wrapping. -->
 
-        <a href="https://example.com/" style="background: #333; border: 2px solid #f00; text-decoration: none; padding: 15px 25px; color: #fff; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#333"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:30pt" hidden>&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;">Link Text</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->
-        </a>
+        <a href="https://example.com/" style="background: #333; border: 2px solid #f00; text-decoration: none; padding: 15px 25px; color: #fff; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#333"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:30pt" hidden>&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;">Link Text</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]--></a>
 
         <!-- NOTE:
         The <hr> default colour is set by the border. To simplify things and to get it to work consistently we’re going to start by removing that border-width: 0 then we need to set our custom colour using background: #000 and to get it working in Outlook we use color: #000. Because we’ve removed the border we now need to give it some height to see that colour showing so here I’ve added height:1em -->
